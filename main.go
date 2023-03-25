@@ -4,6 +4,7 @@ import (
 	"backEnd/database"
 	"backEnd/pkg/mysql"
 	"backEnd/routes"
+	"os"
 
 	"fmt"
 
@@ -19,7 +20,7 @@ func main() {
 		panic("Failed to load env file")
 	}
 	// var port = os.Getenv("PORT")
-	// var port = os.Getenv("PORT")
+	var port = os.Getenv("PORT")
 
 	e := echo.New()
 
@@ -35,7 +36,7 @@ func main() {
 	routes.RouteInit(e.Group("/api/v1"))
 
 	e.Static("/uploads", "./uploads")
-	fmt.Println("server running localhost: 5000")
-	e.Logger.Fatal(e.Start("localhost:5000")) // delete localhost
+	fmt.Println("server running localhost: " + port)
+	e.Logger.Fatal(e.Start(":" + port)) // delete localhost
 
 }
